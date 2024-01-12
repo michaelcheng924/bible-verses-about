@@ -3,21 +3,18 @@ import connectDB from "./connect-db";
 import fs from "fs";
 import path from "path";
 
-export async function getVerseTopics(letter: any) {
+export async function getVerseTopics(/* letter: any */) {
   try {
     await connectDB();
 
-    const regex = new RegExp(`^${letter}`, "i"); // case insensitive search
+    // const regex = new RegExp(`^${letter}`, "i"); // case insensitive search
 
-    const verseTopics = await VerseTopic.find({ name: regex }).exec();
+    const verseTopics = await VerseTopic.find(/* { name: regex } */).exec();
 
-    const cleanedVerseTopics = verseTopics.map(({ name, slug }) => ({
-      name,
-      slug,
-    }));
+    const cleanedVerseTopics = verseTopics.map(({ name, slug }) => slug);
 
     fs.writeFileSync(
-      path.join(__dirname, `../../../public/topics-json/${letter}.json`),
+      path.join(__dirname, `../../../public/topics-slugs.json`),
       JSON.stringify(cleanedVerseTopics, null, 2)
     );
 
