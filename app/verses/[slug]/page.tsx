@@ -8,7 +8,7 @@ export default async function VersePage({ params }: any) {
 
   return (
     <div>
-      {verses.map((item, index) => {
+      {verses.map((item: any, index: any) => {
         return (
           <div
             key={index}
