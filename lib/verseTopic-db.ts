@@ -11,10 +11,13 @@ export async function getVerseTopics(/* letter: any */) {
 
     const verseTopics = await VerseTopic.find(/* { name: regex } */).exec();
 
-    const cleanedVerseTopics = verseTopics.map(({ name, slug }) => slug);
+    const cleanedVerseTopics = verseTopics.map(({ name, slug }) => ({
+      slug,
+      name,
+    }));
 
     fs.writeFileSync(
-      path.join(__dirname, `../../../public/topics-slugs.json`),
+      path.join(__dirname, `../../../public/slugs-name.json`),
       JSON.stringify(cleanedVerseTopics, null, 2)
     );
 
